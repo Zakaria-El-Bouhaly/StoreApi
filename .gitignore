@@ -1,0 +1,17 @@
+/.vs
+
+StoreApi/obj
+StoreApi/bin
+
+Shared/obj
+Shared/bin
+
+Services/obj
+Services/bin
+
+
+Repository/obj
+Repository/bin
+
+Auth/obj
+Auth/bin
