@@ -47,6 +47,19 @@ builder.Services.AddServiceLayer();
 
 
 
+builder.Services.AddIdentity<User, Role>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+    options.Password.RequireDigit = true;
+    options.Password.RequireUppercase = true;
+    options.SignIn.RequireConfirmedEmail = true;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+
+
+
+
 builder.Services
 .AddAuthentication(options =>
 {
@@ -78,17 +91,6 @@ builder.Services.AddAuthorization(
     }
 );
 
-builder.Services.AddIdentity<User, Role>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-    options.Password.RequireDigit = true;
-    options.Password.RequireUppercase = true;
-    options.SignIn.RequireConfirmedEmail = true;
-})
-.AddEntityFrameworkStores<ApplicationDbContext>()
-.AddDefaultTokenProviders();
-
-
 
 
 
@@ -111,7 +113,7 @@ app.UseCors(options =>
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
+//app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
