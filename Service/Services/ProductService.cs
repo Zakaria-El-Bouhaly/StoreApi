@@ -1,5 +1,5 @@
 using AutoMapper;
-using Repository.Exceptions;
+using Service.Exceptions;
 using Repository.Repositories;
 using Shared.Dto;
 using Shared.Models;

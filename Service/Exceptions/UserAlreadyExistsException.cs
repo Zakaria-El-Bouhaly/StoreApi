@@ -1,4 +1,4 @@
-﻿namespace Repository.Exceptions
+﻿namespace Service.Exceptions
 {
     public class UserAlreadyExistsException : Exception
 
