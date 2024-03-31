@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.Data;
-using Repository.Exceptions;
 using Shared.Models;
 
 namespace Repository.Repositories
