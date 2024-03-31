@@ -6,6 +6,7 @@
 
         
         public string Name { get; set; }
-        public ICollection<ProductCategory> ProductCategories { get; set; }
+        public virtual List<ProductCategory> ProductCategories { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -44,7 +44,7 @@ namespace Repository.Repositories
 
         public async Task<List<Product>> GetProducts()
         {
-            return await _context.Products.Include(p => p.ProductCategories).ToListAsync();
+            return await _context.Products.Include(p=>p.Categories).ToListAsync();
         }
 
         public async Task<Product?> UpdateProduct(Product product)

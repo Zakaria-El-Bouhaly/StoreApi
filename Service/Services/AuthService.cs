@@ -14,6 +14,7 @@ namespace Service.Services
         private readonly IJwtService _jwtService;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
+        
 
 
         public AuthService(IUserRepository userRepository, IJwtService jwtService, IMapper mapper, UserManager<User> userManager)
