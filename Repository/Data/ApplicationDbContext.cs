@@ -1,11 +1,12 @@
 ﻿using BCrypt.Net;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shared.Models;
 
 
 namespace Repository.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User, Role, int>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
             base(options)
@@ -66,23 +67,7 @@ namespace Repository.Data
                                }
                                );
 
-            // seed data for users
-            modelBuilder.Entity<User>().HasData(
-                               new User
-                               {
-                                   Id = 1,
-                                   FullName = "Admin",
-                                   Email = "admin@demo.com",
-                                   Password = BCrypt.Net.BCrypt.HashPassword("admin"),
-                                   IsAdmin = true
-                               },
-                               new User
-                               {
-                                   Id = 2,
-                                   FullName = "User",
-                                   Email = "user@demo.com",
-                                   Password = BCrypt.Net.BCrypt.HashPassword("user"),
-                               });
+
 
 
             modelBuilder.Entity<ProductCategory>().HasData(
@@ -91,8 +76,11 @@ namespace Repository.Data
                new ProductCategory { ProductId = 3, CategoryId = 3 },
                new ProductCategory { ProductId = 4, CategoryId = 4 });
 
-
-
+            modelBuilder.Entity<Role>().HasData(
+                new Role { Id = 1, Name = "Admin", NormalizedName = "ADMIN" },
+                new Role { Id = 2, Name = "User", NormalizedName = "USER" }
+                );
+            
             base.OnModelCreating(modelBuilder);
         }
 

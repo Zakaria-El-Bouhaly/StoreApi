@@ -6,8 +6,8 @@ StoreApi/bin
 Shared/obj
 Shared/bin
 
-Services/obj
-Services/bin
+Service/obj
+Service/bin
 
 
 Repository/obj

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.Data;
-using Repository.Exceptions;
 using Shared.Models;
 
 namespace Repository.Repositories
@@ -45,7 +44,7 @@ namespace Repository.Repositories
 
         public async Task<List<Product>> GetProducts()
         {
-            return await _context.Products.Include(p => p.ProductCategories).ToListAsync();
+            return await _context.Products.Include(p=>p.Categories).ToListAsync();
         }
 
         public async Task<Product?> UpdateProduct(Product product)
