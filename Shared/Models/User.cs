@@ -1,16 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
-using System.Text.Json.Serialization;
+
 
 namespace Shared.Models
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }        
-        public string Password { get; set; }
-      
-        public bool IsAdmin { get; set; } = false;
+        public string? FullName { get; set; }
+        [JsonIgnore]
+        public override string? PasswordHash { get; set; }
+        [JsonIgnore]
+        public override string? SecurityStamp { get; set; }
+        [JsonIgnore]
+        public override string? ConcurrencyStamp { get; set; }        
     }
 }

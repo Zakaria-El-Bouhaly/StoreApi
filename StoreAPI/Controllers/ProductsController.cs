@@ -2,14 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Models;
 using Shared.Dto;
 using Service.Services;
-using Repository.Exceptions;
+using Service.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 
 
 
 namespace StoreAPI.Controllers
 {
-    [Authorize]
+    //[Authorize(Policy = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase

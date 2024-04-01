@@ -7,5 +7,6 @@ namespace Service.Services
     {
         Task<AuthResponse?> SignIn(LoginDto loginDto);
         Task<User?> SignUp(RegisterDto registerDto);
+        Task<AuthResponse> RefreshToken(string refreshToken);
     }
 }
