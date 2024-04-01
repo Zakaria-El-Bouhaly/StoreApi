@@ -10,7 +10,11 @@ namespace Repository.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
             base(options)
         { }
-
+        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
         // seed data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,6 +23,13 @@ namespace Repository.Data
             {
                 entity.HasKey(e => new { e.ProductId, e.CategoryId });
             });
+
+            modelBuilder.Entity<Product>().HasMany(p =>
+            p.Categories).WithMany(c => c.Products).UsingEntity<ProductCategory>();
+
+            modelBuilder.Entity<Category>().HasMany(c =>
+            c.Products).WithMany(p => p.Categories).UsingEntity<ProductCategory>();
+
 
 
             modelBuilder.Entity<Category>().HasData(
