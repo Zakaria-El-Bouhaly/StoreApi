@@ -17,7 +17,7 @@ namespace Repository.Repositories
         {
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
-            return product;
+            return await GetProduct(product.Id);
         }
 
         public async Task<Product?> DeleteProduct(int id)
@@ -38,22 +38,45 @@ namespace Repository.Repositories
         {
 
             // get the product with the given id
-            return await _context.Products.Include(p => p.ProductCategories).FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Products.Include(p => p.Categories).Select(p => new Product
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                Price = p.Price,
+                Categories = p.Categories.Select(c => new Category
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                }).ToList()
+            }).FirstOrDefaultAsync(p => p.Id == id);
 
         }
 
         public async Task<List<Product>> GetProducts()
         {
-            return await _context.Products.Include(p=>p.Categories).ToListAsync();
+            return await _context.Products.Include(p=>p.Categories)
+                .Select(p => new Product
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    Price = p.Price,
+                    Categories = p.Categories.Select(c => new Category
+                    {
+                        Id = c.Id,
+                        Name = c.Name
+                    }).ToList()
+                }).ToListAsync();                
         }
 
         public async Task<Product?> UpdateProduct(Product product)
         {
             // remove the old product categories
-            _context.ProductCategories.RemoveRange(_context.ProductCategories.Where(pc => pc.ProductId == product.Id));
+            _context.RemoveRange(_context.ProductCategories.Where(pc => pc.ProductId == product.Id));
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
-            return product;
+            return await GetProduct(product.Id);
         }
     }
 }

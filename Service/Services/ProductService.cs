@@ -19,7 +19,7 @@ namespace Service.Services
             _mapper = mapper;
             _categoryRepository = categoryRepository;
         }
-       
+
 
 
         public async Task<List<Product>> GetProducts()
@@ -63,7 +63,9 @@ namespace Service.Services
             // Adding the ProductCategory to the Product
             foreach (var categoryId in product.CategoryIds)
             {
+
                 // check if the category exists
+                
                 if (await _categoryRepository.GetCategory(categoryId) == null)
                 {
                     throw new CategoryNotFoundException($"Category not found with id: {categoryId}");

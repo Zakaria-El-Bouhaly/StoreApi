@@ -15,13 +15,38 @@ namespace Repository.Repositories
 
         public async Task<List<Category>> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Categories.Include(c => c.Products)
+                .Select(c => new Category
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Products = c.Products.Select(p => new Product
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Description = p.Description,
+                        Price = p.Price
+                    }).ToList()
+                }).ToListAsync();
+
         }
 
         public async Task<Category?> GetCategory(int id)
         {
             return await _context.Categories.Where(c => c.Id == id)
-                .Include(c => c.ProductCategories).FirstAsync();
+                .Include(c => c.Products)
+                .Select(c => new Category
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Products = c.Products.Select(p => new Product
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Description = p.Description,
+                        Price = p.Price
+                    }).ToList()
+                }).FirstOrDefaultAsync();                
         }
 
         public async Task<Category> CreateCategory(Category category)

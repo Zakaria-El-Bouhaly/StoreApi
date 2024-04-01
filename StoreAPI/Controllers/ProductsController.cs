@@ -97,7 +97,7 @@ namespace StoreAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("cannot update product");
+                return BadRequest(ex.Message);
             }
         }
 

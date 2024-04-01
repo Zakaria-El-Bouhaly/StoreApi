@@ -11,7 +11,7 @@ namespace Repository.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
             base(options)
         { }
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies();
@@ -87,12 +87,14 @@ namespace Repository.Data
                new ProductCategory { ProductId = 3, CategoryId = 3 },
                new ProductCategory { ProductId = 4, CategoryId = 4 });
 
+
             modelBuilder.Entity<Role>().HasData(
                 new Role { Id = 1, Name = "Admin", NormalizedName = "ADMIN" },
                 new Role { Id = 2, Name = "User", NormalizedName = "USER" }
                 );
-            
+
             base.OnModelCreating(modelBuilder);
+
         }
 
 

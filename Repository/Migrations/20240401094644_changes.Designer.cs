@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data;
 
@@ -10,16 +11,14 @@ using Repository.Data;
 namespace Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240401094644_changes")]
+    partial class changes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
-                .HasAnnotation("Proxies:ChangeTracking", false)
-                .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true);
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
@@ -218,39 +217,17 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Shared.Models.ProductCategory", b =>
                 {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("ProductId", "CategoryId");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
 
-                    b.HasIndex("CategoryId");
+                    b.HasKey("CategoryId", "ProductId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductId = 1,
-                            CategoryId = 1
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            CategoryId = 2
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            CategoryId = 3
-                        },
-                        new
-                        {
-                            ProductId = 4,
-                            CategoryId = 4
-                        });
                 });
 
             modelBuilder.Entity("Shared.Models.Role", b =>
@@ -416,13 +393,13 @@ namespace Repository.Migrations
             modelBuilder.Entity("Shared.Models.ProductCategory", b =>
                 {
                     b.HasOne("Shared.Models.Category", "Category")
-                        .WithMany("ProductCategories")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Shared.Models.Product", "Product")
-                        .WithMany("ProductCategories")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -430,16 +407,6 @@ namespace Repository.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Shared.Models.Category", b =>
-                {
-                    b.Navigation("ProductCategories");
-                });
-
-            modelBuilder.Entity("Shared.Models.Product", b =>
-                {
-                    b.Navigation("ProductCategories");
                 });
 #pragma warning restore 612, 618
         }

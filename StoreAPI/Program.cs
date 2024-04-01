@@ -72,11 +72,11 @@ builder.Services
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateAudience = false,
+        ValidateAudience = true,
         ValidAudience = builder.Configuration["Jwt:Audience"],
-        ValidateIssuer = false,
+        ValidateIssuer = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidateLifetime = false,
+        ValidateLifetime = true,
         ValidateIssuerSigningKey = false,
         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? string.Empty))
     };
@@ -113,7 +113,7 @@ app.UseCors(options =>
 
 app.UseHttpsRedirection();
 
-//app.UseAuthentication();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
