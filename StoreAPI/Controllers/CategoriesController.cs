@@ -7,7 +7,7 @@ using Shared.Models;
 
 namespace StoreAPI.Controllers
 {
-    [Authorize (Roles = "Admin")]
+    //[Authorize (Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
 
