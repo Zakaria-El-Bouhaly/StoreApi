@@ -44,6 +44,7 @@ namespace Repository.Repositories
                 Name = p.Name,
                 Description = p.Description,
                 Price = p.Price,
+                Quantity = p.Quantity,
                 Categories = p.Categories.Select(c => new Category
                 {
                     Id = c.Id,
@@ -62,6 +63,7 @@ namespace Repository.Repositories
                     Name = p.Name,
                     Description = p.Description,
                     Price = p.Price,
+                    Quantity = p.Quantity,
                     Categories = p.Categories.Select(c => new Category
                     {
                         Id = c.Id,
